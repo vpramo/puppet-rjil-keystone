@@ -905,9 +905,9 @@ tempest::tempest_clone_owner: jenkins
 tempest::volume_storage_protocol: ceph
 tempest::extra_config:
   auth/allow_tenant_isolation:
-    value: true
+    value: false
   compute/run_ssh:
-    value: true
+    value: false
   compute/ssh_auth_method:
     value: keypair
   compute/ssh_connect_method:
@@ -916,16 +916,18 @@ tempest::extra_config:
     value: cirros
   compute/network_for_ssh:
     value: public
+  compute/env_type:
+    value: gate
+  compute/mtu_size:
+    value: 1400
   compute/use_floatingip_for_ssh:
     value: true
   compute-feature-enabled/disk_config:
     value: true
-  compute-feature-enabled/boot_from_volume_only:
-    value: true
   compute-feature-enabled/api_extensions:
     value: all
   compute-feature-enabled/change_password:
-    value: false 
+    value: false
   compute-feature-enabled/console_output:
     value: true
   compute-feature-enabled/resize:
@@ -957,6 +959,8 @@ tempest::extra_config:
   compute-feature-enabled/snapshot:
     value: true
   compute-feature-enabled/ec2_api:
+    value: true
+  compute-feature-enabled/boot_from_volume_only:
     value: true
   oslo_concurrency/disable_process_locking:
     value: true
