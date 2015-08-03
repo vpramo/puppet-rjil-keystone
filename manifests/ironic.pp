@@ -101,4 +101,15 @@ class rjil::ironic(
     type       => 'proc',
   }
 
+  ##
+  # Workaround on package issue on ironic
+  ##
+  ::sudo::conf { 'ironic':
+    ensure  => present,
+    content => "#Managed By Puppet
+Defaults:ironic !requiretty
+ironic ALL = (root) NOPASSWD: /usr/bin/ironic-rootwrap",
+    require => User['ironic'],
+  }
+
 }

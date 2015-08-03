@@ -118,6 +118,14 @@ describe 'rjil::ironic' do
         )
 
         should contain_rjil__jiocloud__consul__service('ironic-conductor').with_tags('real')
+
+        should contain_sudo__conf('ironic').with(
+          {
+            :ensure  => 'present',
+            :content => "#Managed By Puppet\nDefaults:ironic !requiretty\nironic ALL = (root) NOPASSWD: /usr/bin/ironic-rootwrap",
+            :require => 'User[ironic]'
+          }
+        )
     end
   end
 
