@@ -78,14 +78,14 @@ if [ -n "${puppet_modules_source_repo}" ]; then
   mkdir -p /etc/puppet/hiera.overrides
   sed  -i "s/  :datadir: \/etc\/puppet\/hiera\/data/  :datadir: \/etc\/puppet\/hiera.overrides\/data/" /tmp/rjil/hiera/hiera.yaml
   cp /tmp/rjil/hiera/hiera.yaml /etc/puppet
-  cp -Rvf /tmp/rjil/hiera/data /etc/puppet/hiera.overrides
+  cp -Rf /tmp/rjil/hiera/data /etc/puppet/hiera.overrides
   mkdir -p /etc/puppet/modules.overrides/rjil
-  cp -Rvf /tmp/rjil/* /etc/puppet/modules.overrides/rjil/
+  cp -Rf /tmp/rjil/* /etc/puppet/modules.overrides/rjil/
   if [ -n "${module_git_cache}" ]
   then
     cd /etc/puppet/modules.overrides
     wget -O cache.tar.gz "${module_git_cache}"
-    tar xvzf cache.tar.gz
+    tar xzf cache.tar.gz
     time librarian-puppet update --puppetfile=/tmp/rjil/Puppetfile --path=/etc/puppet/modules.overrides
   else
     time librarian-puppet install --puppetfile=/tmp/rjil/Puppetfile --path=/etc/puppet/modules.overrides
