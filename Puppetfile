@@ -115,7 +115,7 @@ mod 'puppetlabs/rabbitmq',
 
 mod 'puppetlabs/stdlib',
   :git => "#{base_url}/puppetlabs/puppetlabs-stdlib",
-  :ref => '4.3.2'
+  :ref => '4.8.0'
 
 mod 'stackforge/vswitch',
   :git => "#{base_url}/stackforge/puppet-vswitch",
@@ -155,7 +155,7 @@ mod 'puppet-modules/common',
 
 mod 'solarkennedy/consul',
   :git => "#{base_url}/solarkennedy/puppet-consul",
-  :ref => 'origin/master'
+  :ref => '3128b476b1f6ea695cac1f772f262c078c853032'
 
 mod 'jiocloud/openstack_zeromq',
   :git => "#{base_url}/jiocloud/puppet-openstack_zeromq"
