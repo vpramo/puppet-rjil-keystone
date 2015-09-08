@@ -74,8 +74,8 @@ mod 'stackforge/cinder',
   :ref => 'stable/icehouse'
 
 mod 'stackforge/openstacklib',
-  :git => "#{base_url}/jiocloud/puppet-openstacklib",
-  :ref => 'origin/master'
+  :git => "#{base_url}/bodepd/puppet-openstacklib",
+  :ref => 'kilo'
 
 mod 'stackforge/ironic',
   :git => "#{base_url}/jiocloud/puppet-ironic",
@@ -95,7 +95,7 @@ mod 'stackforge/glance',
 
 mod 'puppetlabs/keystone',
   :git => "#{base_url}/stackforge/puppet-keystone",
-  :ref => '89a650631189ffc2f857845d138666a046f0ae5f'
+  :ref => 'stable/kilo'
 
 mod 'puppetlabs/mysql',
   :git => "#{base_url}/puppetlabs/puppetlabs-mysql",

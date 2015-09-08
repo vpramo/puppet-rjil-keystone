@@ -9,6 +9,13 @@ node /^bootstrap\d+/ {
 # These nodes wait at least one stmon to be registered in consul.
 ##
 
+node /^keystone\d+/ {
+  include rjil::base
+  include rjil::memcached
+  include openstacklib::openstackclient
+  include rjil::keystone
+}
+
 node /^st\d+/ {
   include rjil::base
   include rjil::ceph
@@ -88,8 +95,6 @@ node /^ct\d+/ {
 
 node /^oc\d+/ {
   include rjil::base
-  include rjil::memcached
-  include rjil::keystone
   include openstack_extras::client
   include rjil::cinder
   include rjil::glance
@@ -103,10 +108,8 @@ node /^oc\d+/ {
 
 node /^ocdb\d+/ {
   include rjil::base
-  include rjil::memcached
   include openstack_extras::client
   include rjil::db
-  include rjil::keystone
   include rjil::cinder
   include rjil::glance
   include rjil::nova::controller
