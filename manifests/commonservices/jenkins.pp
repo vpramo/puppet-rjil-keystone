@@ -6,11 +6,8 @@ class rjil::commonservices::jenkins {
     'openjdk-7-jre-headless',
     'sbuild',
     'ubuntu-dev-tools',
-    'python-pip',
     'npm',
-    'git',
     'python-lxml',
-    'python-dev',
     'autoconf',
     'libtool',
     'haveged',
@@ -19,9 +16,7 @@ class rjil::commonservices::jenkins {
     'pkg-config',
     'bundler',
     'libxml2-utils',
-    'build-essential',
-    'libffi-dev',
-    'python-virtualenv']
+    'libffi-dev']
 
   package { $packages: ensure => 'installed' }
 

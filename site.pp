@@ -220,7 +220,8 @@ node /^tools\d+/ {
   include rjil::base
   include rjil::commonservices::mediawiki
   include rjil::commonservices::base
-  include rjil::commonservices::jenkins::master
   include rjil::commonservices::tools
+  include rjil::commonservices::jenkins::master
   include ::omd::server
+  include ::pkgbuilder
 }
