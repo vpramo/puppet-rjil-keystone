@@ -223,9 +223,15 @@ mod 'hexmode/mediawiki',
 mod 'fnerdwq/omd',
   :git => "#{base_url}/jiocloud/puppet-omd",
   :ref => 'master'
+
 mod 'garethr/docker',
   :git => "#{base_url}/jiocloud/garethr-docker",
   :ref => 'master'
+
 mod 'jiocloud/pkgbuilder',
   :git => "#{base_url}/jiocloud/pkgbuilder",
+  :ref => 'master'
+
+mod 'puppetlabs/xinetd',
+  :git => "#{base_url}/puppetlabs/puppetlabs-xinetd",
   :ref => 'master'

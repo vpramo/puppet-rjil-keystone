@@ -160,4 +160,6 @@ fixtures:
       ref: origin/master
     pkgbuilder:
       repo: https://github.com/jiocloud/pkgbuilder
+    xinetd:
+      repo: https://github.com/puppetlabs/puppetlabs-xinetd
       ref: origin/master
