@@ -26,3 +26,11 @@ rjil::base::self_signed_cert: true
 
 rjil::jiocloud::consul_role: server
 rjil::jiocloud::consul::encrypt: "%{consul_gossip_encrypt}"
+
+pkgbuilder::public_ip: "10.140.221.236"
+pkgbuilder::public_port: "9000"
+pkgbuilder::db::db_name: "pkgbuilder"
+pkgbuilder::db::db_rootpassword: "db_password"
+pkgbuilder::db::db_username: "pkgbuilder"
+pkgbuilder::db::db_password: "change3M3"
+pkgbuilder::proxy: "%{rjil::system::apt::proxy}"
