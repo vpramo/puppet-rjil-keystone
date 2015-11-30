@@ -4,6 +4,10 @@ ntp::servers:
   - 10.140.221.235
   - 10.140.221.232
 
+public_address: "%{ipaddress_10_140_221_224_28}"
+public_interface: "%{interface_10_140_221_224_28}"
+private_address: "%{ipaddress_10_140_221_224_28}"
+private_interface: "%{interface_10_140_221_224_28}"
 
 rjil::system::proxies:
   "no":
@@ -13,11 +17,12 @@ rjil::system::proxies:
   https:
     url: "http://10.140.218.59:3128/"
 
-rjil::system::accounts::active_users: [consul,anshup,amar,vpramo,akash,soren,bodepd,mayankkapoor]
+rjil::system::accounts::active_users: [apache,consul,anshup,amar,vpramo,akash,soren,bodepd,mayankkapoor]
 rjil::system::accounts::sudo_users:
   admin:
-    users: [consul,anshup,amar,vpramo,akash,soren,bodepd,mayankkapoor]
+    users: [apache,consul,anshup,amar,vpramo,akash,soren,bodepd,mayankkapoor]
 
 rjil::base::self_signed_cert: true
 
+rjil::jiocloud::consul_role: server
 rjil::jiocloud::consul::encrypt: "%{consul_gossip_encrypt}"

@@ -193,11 +193,12 @@ class rjil::commonservices::jenkins::master {
     ;
   }
 
-  file { '/home/jenkins/.gitconfig':
-    owner  => 'jenkins',
-    group  => 'jenkins',
-    source => 'puppet:///modules/rjil/jenkins-gitconfig',
-    mode   => '0644'
+  file { '/var/lib/jenkins/.gitconfig':
+    owner     => 'jenkins',
+    group     => 'jenkins',
+    source    => 'puppet:///modules/rjil/jenkins-gitconfig',
+    mode      => '0644',
+    subscribe => User['jenkins']
   }
 }
 
