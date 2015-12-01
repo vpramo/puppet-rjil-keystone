@@ -3,5 +3,4 @@ rjil::jiocloud::consul_role: bootstrapserver
 rjil::system::ntp::server: true
 rjil::system::ntp::run_ntpdate: false
 
-ntp::servers: "%{lookup_array('upstream_ntp_servers')}"
 ntp::udlc: yes

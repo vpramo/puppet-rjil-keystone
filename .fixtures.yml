@@ -161,3 +161,6 @@ fixtures:
     pkgbuilder:
       repo: https://github.com/jiocloud/pkgbuilder
       ref: origin/master
+    galera:
+      repo: https://github.com/jiocloud/puppet-galera
+      ref: origin/master
