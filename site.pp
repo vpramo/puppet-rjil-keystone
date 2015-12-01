@@ -26,8 +26,9 @@ node /^iamdb\d+/ {
   include rjil::memcached
   include openstack_extras::client
   include rjil::db
-  include rjil::openstack_zeromq
-  include rjil::openstack_objects
+  include rjil::keystone
+#  include rjil::openstack_zeromq
+#  include rjil::openstack_objects
 }
 
 #
@@ -37,8 +38,8 @@ node /^iamdb\d+/ {
 node /^iam\d+/ {
   include rjil::base
   include rjil::keystone
-  include openstack_extras::client
-  include rjil::openstack_zeromq
+#  include openstack_extras::client
+#  include rjil::openstack_zeromq
   include rjil::openstack_objects
 }
 

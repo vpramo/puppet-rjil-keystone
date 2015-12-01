@@ -14,7 +14,7 @@ resources:
     boot_volume: default_volume
     assign_floating_ip: true
   iamdb:
-    number: 2
+    number: 3
     flavor: large
     image: trusty
     networks: default

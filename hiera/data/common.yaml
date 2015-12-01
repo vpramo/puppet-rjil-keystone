@@ -100,7 +100,7 @@ ironic_internal_address: ironic.jiocloud.com
 ###################################
 
 admin_email: cloud.devops@ril.com
-db_host: mysql.service.consul
+db_host: master.mysql.service.consul
 debug: 'true'
 verbose: 'true'
 region: RegionOne
@@ -110,6 +110,7 @@ public_network_name: public
 
 ########### auth for test user
 ##################################
+l::openstack_objects::lb_available: false
 
 rjil::openstack_objects::users:
   "%{hiera('test_user_name')}":
@@ -121,7 +122,7 @@ rjil::openstack_objects::users:
 # hash of tenants with params for rjil::keystone::tenant
 ##
 rjil::openstack_objects::tenants: ['mgmt_tenant','internal_tenant']
-
+rjil::keystone::tenant:create_network: false
 ##
 # rjil::openstack_objects::roles can be either a array of role names or a
 # hash of roles with params for rjil::keystone::role
@@ -548,7 +549,7 @@ nova::keystone::auth::admin_address: "%{hiera('nova_internal_address')}"
 nova::keystone::auth::internal_address: "%{hiera('nova_internal_address')}"
 nova::keystone::auth::region: "%{hiera('region')}"
 
-rjil::keystone::ceph_radosgw_enabled: true
+rjil::keystone::ceph_radosgw_enabled: false
 rjil::keystone::radosgw::admin_address: "%{hiera('radosgw_internal_address')}"
 rjil::keystone::radosgw::internal_address: "%{hiera('radosgw_internal_address')}"
 rjil::keystone::radosgw::public_protocol: "%{hiera('radosgw_protocol')}"
