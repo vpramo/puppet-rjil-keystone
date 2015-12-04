@@ -71,7 +71,7 @@ fixtures:
       ref: 'origin/svn_to_git_2'
     apt:
       repo: https://github.com/puppetlabs/puppetlabs-apt
-      ref: 1.8.0
+      ref: 2.2.0
     cinder:
       repo: https://github.com/stackforge/puppet-cinder
       ref: 4.0.0
@@ -160,4 +160,6 @@ fixtures:
       ref: origin/master
     pkgbuilder:
       repo: https://github.com/jiocloud/pkgbuilder
+    virtualbox:
+      repo: https://github.com/danzilio/danzilio-virtualbox
       ref: origin/master

@@ -67,7 +67,7 @@ mod 'puppetlabs/apache',
 
 mod 'puppetlabs/apt',
   :git => "#{base_url}/puppetlabs/puppetlabs-apt",
-  :ref => '1.8.0'
+  :ref => '2.2.0'
 
 mod 'stackforge/cinder',
   :git => "#{base_url}/stackforge/puppet-cinder",
@@ -212,7 +212,7 @@ mod 'unibet/vagrant',
   :git => "#{base_url}/unibet/puppet-vagrant",
   :ref => 'origin/master'
 
-mod 'danzilio/danzilio-virtualbox',
+mod 'danzilio/virtualbox',
   :git => "#{base_url}/danzilio/danzilio-virtualbox",
   :ref => 'origin/master'
 
@@ -223,9 +223,11 @@ mod 'hexmode/mediawiki',
 mod 'fnerdwq/omd',
   :git => "#{base_url}/jiocloud/puppet-omd",
   :ref => 'master'
+
 mod 'garethr/docker',
   :git => "#{base_url}/jiocloud/garethr-docker",
   :ref => 'master'
+
 mod 'jiocloud/pkgbuilder',
   :git => "#{base_url}/jiocloud/pkgbuilder",
   :ref => 'master'
