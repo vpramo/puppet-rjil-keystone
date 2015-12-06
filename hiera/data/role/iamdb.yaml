@@ -1,2 +1,5 @@
 rjil::keystone::disable_db_sync: false
 rjil::jiocloud::consul_role: server
+galera::status::status_password: 'monitor'
+galera::status::status_user: 'monitor'
+
