@@ -2,4 +2,8 @@ rjil::keystone::disable_db_sync: false
 rjil::jiocloud::consul_role: server
 galera::status::status_password: 'monitor'
 galera::status::status_user: 'monitor'
+galera::repo::apt_mariadb_repo_location: 'http://mirrors.bestthaihost.com/mariadb/repo/5.5/ubuntu/'
+galera::repo::apt_mariadb_repo_key: '199369E5404BD5FC7D2FE43BCBCB082A1BB943DB'
+galera::repo::apt_mariadb_repo_key_server: 'keyserver.ubuntu.com'
+
 
