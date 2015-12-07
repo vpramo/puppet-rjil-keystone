@@ -11,7 +11,7 @@ class rjil::haproxy::openstack(
   $nova_ips              = sort(values(service_discover_consul('nova', 'real'))),
   $neutron_ips           = sort(values(service_discover_consul('neutron', 'real'))),
   $radosgw_ips           = sort(values(service_discover_consul('radosgw', 'real'))),
-  $galera_ips            = sort(values(service_discover_consul('mysql'))),
+  $galera_ips            = sort(values(service_discover_consul('mysql', 'node'))),
   $radosgw_port          = '80',
   $horizon_port          = '80',
   $horizon_https_port    = '443',

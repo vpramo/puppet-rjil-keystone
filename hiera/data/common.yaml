@@ -43,8 +43,12 @@ rjil::db::dbs:
     user: "%{hiera('neutron_db_user')}"
     pass: "%{hiera('neutron_db_password')}"
 
-# Gets overridden for ocdb role
-rjil::keystone::disable_db_sync: true
+
+rjil::galera::dbs:
+  keystone:
+    user: "%{hiera('keystone_db_user')}"
+    pass: "%{hiera('keystone_db_password')}"
+
 
 ####################################
 ####### Add cnames #################

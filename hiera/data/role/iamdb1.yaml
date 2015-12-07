@@ -1,2 +1,4 @@
 rjil::galera::galera_role: master
 galera::galera_master: "%{::fqdn}"
+# Gets overridden for ocdb role
+rjil::keystone::disable_db_sync: true
