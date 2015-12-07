@@ -232,6 +232,10 @@ mod 'jiocloud/pkgbuilder',
   :git => "#{base_url}/jiocloud/pkgbuilder",
   :ref => 'master'
 
-mod 'michaeltchapman/puppet-galera',
+mod 'michaeltchapman/galera',
   :git => "#{base_url}/jiocloud/puppet-galera",
+  :ref => 'master'
+
+mod 'puppetlabs/xinetd',
+  :git => "#{base_url}/jiocloud/puppet-xinetd",
   :ref => 'master'
