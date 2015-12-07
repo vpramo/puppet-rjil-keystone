@@ -11,8 +11,8 @@ class rjil::galera(
 
   rjil::test { 'mysql.sh': }
 
-  $galera_servers = values(service_discover_consul('mysql'))
-  $galera_master = values(service_discover_consul('mysql','master'))
+  $galera_servers = values(service_discover_consul('mysql', 'node'))
+  $galera_master = values(service_discover_consul('mysql', 'master'))
   class { '::galera':
 	        galera_servers     => $galera_servers,
 	        galera_master      => $galera_master,
@@ -21,7 +21,7 @@ class rjil::galera(
         }
 
   rjil::jiocloud::consul::service { "mysql":
-    tags          => [$galera_role],
+    tags          => [$galera_role, "node"],
     port          => 3306,
     check_command => "/usr/lib/nagios/plugins/check_mysql -H ${bind_address} -u monitor -p monitor"
   }
