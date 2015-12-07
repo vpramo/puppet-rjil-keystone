@@ -1,1 +1,2 @@
-rjil::db::galera_role: master
+rjil::galera::galera_role: master
+galera::galera_master: "%{::fqdn}"
