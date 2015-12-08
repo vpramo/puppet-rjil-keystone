@@ -107,7 +107,7 @@ fixtures:
       ref: 0.3.0
     puppet:
       repo: https://github.com/stephenrjohnson/puppetmodule
-      ref: 1.0.0
+      ref: 1.3.1
     dnsmasq:
       repo: https://github.com/JioCloud/puppet-dnsmasq
       ref: origin/master
