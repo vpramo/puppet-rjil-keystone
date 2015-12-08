@@ -21,11 +21,15 @@ class rjil::haproxy::galera(
     cluster_addresses => $galera_ips,
     check_type        => 'mysql'
   }
+	rjil::test::check { 'galera':
+	  port    => $galera_port,
+	  ssl     => false,
+	  type    => 'galera',
+	 }
 
   rjil::jiocloud::consul::service { 'galera':
     tags           => ["$::hostname"],
     port           => $port,
-    check_command => '/usr/lib/jiocloud/tests/service_checks/mysql.sh'
   }
 
 }

@@ -5,7 +5,6 @@
 
 class rjil::galera(
   $galera_role  = 'replica',
-  $mysql_datadir =  '/data',
   $mysql_max_connections = 1024,
   $dbs = {},
   $bind_address = '0.0.0.0',
@@ -25,21 +24,12 @@ class rjil::galera(
 	  galera_master      => $galera_master,
 	  vendor_type        => 'mariadb',
 	  configure_firewall => false,
-          override_options   => { 'mysqld' => {
-            'max_connections' => $mysql_max_connections,
-            'datadir'         => $mysql_datadir,
-            'bind-address'    => $bind_address,
-             }
-          }
-        }
-
-  file { $mysql_datadir:
-    ensure  => 'directory',
-    owner   => 'mysql',
-    group   => 'mysql',
-    require => Class['Mysql::Server'],
+    override_options   => { 'mysqld' => {
+															            'max_connections' => $mysql_max_connections,
+															            'bind-address'    => $bind_address,
+  													             }
+								          },
   }
-
 
   if ($bind_address == '0.0.0.0') {
     $user_address = '127.0.0.1'
