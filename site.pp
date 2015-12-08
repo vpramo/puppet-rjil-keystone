@@ -4,18 +4,16 @@ Exec {
 }
 
 #
-# bootstrap node mainly for consul purposes
-# 
+# bootstrap node mainly for consul purposes (optional)
+# Presently Haproxy1 is also the bootstrap node
+#
 node /^iambootstrap\d+/ {
   include rjil::base
   include rjil::jiocloud::consul::consul_alerts
 }
 
-
-
-
 #
-# This contains the galera db master. 
+# This contains the galera db master.
 # Presently master and slave are decided based on node number:
 # i.e, 1 - master
 #      2 - slave
@@ -25,38 +23,40 @@ node /^iamdb\d+/ {
   include rjil::base
   include rjil::memcached
   include openstack_extras::client
-  include rjil::db
-  include rjil::keystone
-#  include rjil::openstack_zeromq
-#  include rjil::openstack_objects
+  include rjil::galera
 }
 
 #
-# The main iam nodes
+# The main IAM nodes
+# These also have a haproxy which is used only by localhost
+# for accessing galera cluster
 #
 
 node /^iam\d+/ {
   include rjil::base
+  include rjil::haproxy
   include rjil::keystone
-#  include openstack_extras::client
-#  include rjil::openstack_zeromq
   include rjil::openstack_objects
+  include rjil::haproxy::galera
+  include openstack_extras::client
+  include openstack_extras::auth_file
 }
 
 #
 # Haproxy nodes
-# Presently this haproxy cluster will be haproxy for both iam as well as galera cluster
+# This is used to load balance only IAM calls.
 #
 
 node /^iamhaproxy\d+/ {
   include rjil::base
   include rjil::haproxy
   include rjil::haproxy::openstack
+  include rjil::jiocloud::consul::consul_alerts
 }
 
-# 
+#
 # httproxy node for providing the http proxy.
-# 
+#
 
 node /^httpproxy\d+/ {
   include rjil::base
@@ -77,4 +77,3 @@ node /^vagrant\d+/ {
   include rjil::base
   include rjil::jiocloud::vagrant
 }
-

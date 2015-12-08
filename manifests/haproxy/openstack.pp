@@ -47,9 +47,5 @@ class rjil::haproxy::openstack(
     cluster_addresses => $keystone_internal_ips,
   }
 
-  rjil::haproxy_service { 'mysql':
-    balancer_ports    => $galera_port,
-    cluster_addresses => $galera_ips,
-  }
 
 }
