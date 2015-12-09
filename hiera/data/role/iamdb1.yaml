@@ -1,0 +1,3 @@
+rjil::galera::galera_role: master
+galera::galera_master: "%{::fqdn}"
+

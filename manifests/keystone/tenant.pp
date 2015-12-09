@@ -7,7 +7,7 @@
 define rjil::keystone::tenant (
   $tenant_name    = $name,
   $enabled        = true,
-  $create_network = true,
+  $create_network = false,
 ) {
 
   keystone_tenant { $tenant_name:

@@ -4,7 +4,7 @@
 ## format and mount mysql_data_disk to mysql_datadir
 ## create mysql database if not exists
 ## create databases and users and grants if not exists
-
+## registers the service along with galera role
 class rjil::db (
   $mysql_root_pass,
   $mysql_server_package_name = 'mariadb-server',
@@ -13,6 +13,7 @@ class rjil::db (
   $mysql_data_disk = undef,
   $dbs = {},
   $bind_address = '0.0.0.0',
+  $galera_role  = 'master',
 )  {
 
 
@@ -124,6 +125,7 @@ class rjil::db (
   }
 
   rjil::jiocloud::consul::service { "mysql":
+    tags          => [$galera_role],
     port          => 3306,
     check_command => "/usr/lib/nagios/plugins/check_mysql -H ${bind_address} -u monitor -p monitor"
   }

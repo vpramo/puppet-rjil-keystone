@@ -1,6 +1,5 @@
 ---
 :backends:
-  - array_lookup
   - yaml
 :yaml:
   :datadir: /etc/puppet/hiera/data
@@ -8,6 +7,7 @@
   - "clientcert/%{::clientcert}"
   - "secrets/%{env}"
   - "role/%{env}/%{jiocloud_role}"
+  - "role/%{hostname}"
   - "role/%{jiocloud_role}"
   - "hw/%{cloud_provider}/%{productname}"
   - "cloud_provider/%{cloud_provider}"

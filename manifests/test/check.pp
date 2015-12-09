@@ -1,14 +1,16 @@
 #
-# Class: rjil::test::cinder
-#   Adding tests for cinder services
+# Class: rjil::test::check
+#   Adding tests for services
 #
 
 define rjil::test::check(
-  $port       = 0,
-  $address    = '127.0.0.1',
-  $ssl        = false,
-  $type       = 'http',
-  $check_type = 'service',
+  $port             = 0,
+  $address          = '127.0.0.1',
+  $ssl              = false,
+  $type             = 'http',
+  $check_type       = 'service',
+  $status_user      = 'monitor',
+  $status_password  = 'monitor',
 ) {
 
   include rjil::test::base

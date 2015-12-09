@@ -11,6 +11,7 @@ class rjil::haproxy::openstack(
   $nova_ips              = sort(values(service_discover_consul('nova', 'real'))),
   $neutron_ips           = sort(values(service_discover_consul('neutron', 'real'))),
   $radosgw_ips           = sort(values(service_discover_consul('radosgw', 'real'))),
+  $galera_ips            = sort(values(service_discover_consul('mysql', 'node'))),
   $radosgw_port          = '80',
   $horizon_port          = '80',
   $horizon_https_port    = '443',
@@ -24,45 +25,17 @@ class rjil::haproxy::openstack(
   $neutron_port          = '9696',
   $metadata_port         = '8775',
   $nova_ec2_port         = '8773',
+  $galera_port            = '3306',
 ) {
 
   class { 'rjil::test::haproxy_openstack':
-    horizon_ips           => $horizon_ips,
     keystone_ips          => $keystone_ips,
-    keystone_internal_ips => $keystone_internal_ips,
-    glance_ips            => $glance_ips,
-    cinder_ips            => $cinder_ips,
-    nova_ips              => $nova_ips,
   }
 
   Rjil::Haproxy_service {
     ssl => true,
   }
 
-  rjil::haproxy_service { 'horizon':
-    balancer_ports    => $horizon_port,
-    cluster_addresses => $horizon_ips,
-    listen_options   =>  {
-      'balance'      => 'source',
-      'option'       => ['tcpka','abortonclose']
-    },
-  }
-
-  rjil::haproxy_service { 'radosgw':
-    balancer_ports    => $radosgw_port,
-    cluster_addresses => $radosgw_ips,
-  }
-
-  rjil::haproxy_service { 'horizon-https':
-    balancer_ports    => $horizon_https_port,
-    cluster_addresses => $horizon_ips,
-  }
-
-  rjil::haproxy_service { 'novncproxy':
-    balancer_ports    => $novncproxy_port,
-    cluster_addresses => $nova_ips,
-    check_type        => 'tcp',
-  }
 
   rjil::haproxy_service { 'keystone':
     balancer_ports    => $keystone_public_port,
@@ -74,42 +47,5 @@ class rjil::haproxy::openstack(
     cluster_addresses => $keystone_internal_ips,
   }
 
-  rjil::haproxy_service { 'glance':
-    balancer_ports    => $glance_port,
-    cluster_addresses => $glance_ips,
-  }
-
-  rjil::haproxy_service { 'neutron':
-    balancer_ports    => $neutron_port,
-    cluster_addresses => $neutron_ips,
-  }
-
-  rjil::haproxy_service { 'glance-registry':
-    balancer_ports    => $glance_registry_port,
-    cluster_addresses => $glance_ips,
-    check_type        => 'tcp',
-  }
-
-  rjil::haproxy_service { 'cinder':
-    balancer_ports    => $cinder_port,
-    cluster_addresses => $cinder_ips,
-  }
-
-  rjil::haproxy_service { 'nova':
-    balancer_ports    => $nova_port,
-    cluster_addresses => $nova_ips,
-  }
-
-  rjil::haproxy_service { 'metadata':
-    balancer_ports    => $metadata_port,
-    cluster_addresses => $nova_ips,
-    ssl               => false,
-  }
-
-  rjil::haproxy_service { 'nova-ec2':
-    balancer_ports    => $nova_ec2_port,
-    cluster_addresses => $nova_ips,
-    check_type        => 'tcp',
-  }
 
 }

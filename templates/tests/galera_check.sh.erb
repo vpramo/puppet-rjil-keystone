@@ -1,0 +1,3 @@
+#!/bin/bash
+set -e
+/usr/lib/nagios/plugins/check_mysql -H <%= @address %> -u<%= @status_user %> -p<%= @status_password %>

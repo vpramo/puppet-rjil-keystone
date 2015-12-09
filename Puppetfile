@@ -135,7 +135,7 @@ mod 'saz/memcached',
 
 mod 'stephenrjohnson/puppet',
   :git => "#{base_url}/stephenrjohnson/puppetmodule",
-  :ref => '1.0.0'
+  :ref => '1.3.1'
 
 mod 'jiocloud/contrail',
   :git => "#{base_url}/jiocloud/jiocloud-contrail",
@@ -212,7 +212,7 @@ mod 'unibet/vagrant',
   :git => "#{base_url}/unibet/puppet-vagrant",
   :ref => 'origin/master'
 
-mod 'danzilio/danzilio-virtualbox',
+mod 'danzilio/virtualbox',
   :git => "#{base_url}/danzilio/danzilio-virtualbox",
   :ref => 'origin/master'
 
@@ -223,9 +223,19 @@ mod 'hexmode/mediawiki',
 mod 'fnerdwq/omd',
   :git => "#{base_url}/jiocloud/puppet-omd",
   :ref => 'master'
+
 mod 'garethr/docker',
   :git => "#{base_url}/jiocloud/garethr-docker",
   :ref => 'master'
+
 mod 'jiocloud/pkgbuilder',
   :git => "#{base_url}/jiocloud/pkgbuilder",
+  :ref => 'master'
+
+mod 'michaeltchapman/galera',
+  :git => "#{base_url}/jiocloud/puppet-galera",
+  :ref => 'master'
+
+mod 'puppetlabs/xinetd',
+  :git => "#{base_url}/jiocloud/puppet-xinetd",
   :ref => 'master'
