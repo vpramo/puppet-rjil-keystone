@@ -28,6 +28,7 @@ describe 'rjil::contrail::server' do
       should contain_file('/usr/lib/jiocloud/tests/contrail-api.sh')
       should contain_file('/usr/lib/jiocloud/tests/contrail-control.sh')
       should contain_file('/usr/lib/jiocloud/tests/contrail-discovery.sh')
+      should contain_file('/usr/lib/jiocloud/tests/contrail-dns.sh')
       should contain_file('/usr/lib/jiocloud/tests/contrail-schema.sh')
       should contain_file('/usr/lib/jiocloud/tests/contrail-webui-webserver.sh')
       should contain_file('/usr/lib/jiocloud/tests/contrail-webui-jobserver.sh')

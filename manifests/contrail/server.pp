@@ -43,7 +43,7 @@ class rjil::contrail::server (
   rjil::jiocloud::logrotate { $contrail_logs:
     logdir => '/var/log/contrail'
   }
-  
+
   ##
   # The logs which support higher filesize need either a sighup or
   # a copytruncate to rotate properly (else the process will keep writing to
@@ -54,12 +54,12 @@ class rjil::contrail::server (
                                 'contrail-dns',
                                 'contrail-ifmap-server',
   ]
-  
+
   rjil::jiocloud::logrotate { $contrail_logs_copytruncate:
     logdir       => '/var/log/contrail',
     copytruncate => true,
   }
-  
+
   include rjil::contrail::logrotate::consolidate
 
   ##
@@ -75,5 +75,5 @@ class rjil::contrail::server (
   rjil::jiocloud::logrotate { $contrail_logrotate_delete:
     ensure => absent
   }
-  
+
 }

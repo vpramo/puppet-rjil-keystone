@@ -43,13 +43,13 @@ rjil::db::dbs:
     user: "%{hiera('neutron_db_user')}"
     pass: "%{hiera('neutron_db_password')}"
 
-
 rjil::galera::bind_address: "%{hiera('private_address')}"
 rjil::galera::dbs:
   keystone:
     user: "%{hiera('keystone_db_user')}"
     pass: "%{hiera('keystone_db_password')}"
 
+rjil::keystone::disable_db_sync: true
 
 ####################################
 ####### Add cnames #################
@@ -115,7 +115,7 @@ public_network_name: public
 
 ########### auth for test user
 ##################################
-l::openstack_objects::lb_available: false
+rjil::openstack_objects::lb_available: false
 
 rjil::openstack_objects::users:
   "%{hiera('test_user_name')}":
@@ -128,6 +128,7 @@ rjil::openstack_objects::users:
 ##
 rjil::openstack_objects::tenants: ['mgmt_tenant','internal_tenant']
 rjil::keystone::tenant:create_network: false
+
 ##
 # rjil::openstack_objects::roles can be either a array of role names or a
 # hash of roles with params for rjil::keystone::role
@@ -650,8 +651,15 @@ rjil::system::apt::repositories:
     release: 'trusty-security'
     repos: 'main restricted universe multiverse'
     include_src: false
-
-
+  ubuntu_kilo:
+    location: http://ubuntu-cloud.archive.canonical.com/ubuntu
+    release: trusty-updates/kilo
+    repos: main
+    include_src: false
+    key: 
+      id: '4A3CE3CD565D7EB5C810E2B97FF3F408476CF100'
+      server: 'keyserver.ubuntu.com'
+    pin: 700  
 
 ########################################
 ########## Contrail Settings ###########
