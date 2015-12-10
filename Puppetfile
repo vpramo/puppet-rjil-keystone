@@ -237,5 +237,5 @@ mod 'michaeltchapman/galera',
   :ref => 'master'
 
 mod 'puppetlabs/xinetd',
-  :git => "#{base_url}/jiocloud/puppet-xinetd",
+  :git => "#{base_url}/jiocloud/puppetlabs-xinetd",
   :ref => 'master'

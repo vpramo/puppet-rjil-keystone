@@ -38,6 +38,10 @@ class rjil::openstack_objects(
     $neutron_service_name = 'neutron'
   }
 
+  exec {'retry_keystone_db_sync':
+    command => '/usr/bin/keystone-manage db_sync',
+    unless  => Keystone_user,
+  }
   # add a runtime fail and ensure that it blocks all object creation.
   # otherwise, it's possible that we might have to wait for network
   # timeouts if the dns address does not correctly resolve.
