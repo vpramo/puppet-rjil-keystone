@@ -19,7 +19,6 @@ class rjil::galera(
   create_resources('rjil::db::instance', $dbs)
 
   $galera_servers = values(service_discover_consul('mysql', 'node'))
-  $galera_master = values(service_discover_consul('mysql', 'master'))
   if ($galera_master_hostname in $::fqdn){
     $galera_master = $::fqdn
   } else {

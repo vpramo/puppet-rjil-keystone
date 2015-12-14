@@ -40,7 +40,8 @@ class rjil::openstack_objects(
 
   exec {'retry_keystone_db_sync':
     command => '/usr/bin/keystone-manage db_sync',
-    unless  => Keystone_user,
+    unless  => '/bin/true'
+# TODO replace above w/ script checking for db sanity/tables count
   }
   # add a runtime fail and ensure that it blocks all object creation.
   # otherwise, it's possible that we might have to wait for network
@@ -64,13 +65,15 @@ class rjil::openstack_objects(
 #  Rjil::Service_blocker[$neutron_service_name] -> Neutron_network<||>
 
   # provision keystone objects only for keystone service, not for all
-  include rjil::openstack_extras::keystone_endpoints
+  # TODO Needs manual bootstrap for the timebeing till puppet is fixed
+#  include rjil::openstack_extras::keystone_endpoints
 
   # provision tempest resources like images, network, users etc.
-#  include rjil::tempest::provision
+  include rjil::tempest::provision
 
   # create users, tenants, roles, default networks
-  create_resources('rjil::keystone::user',$users)
+  # TODO Needs manual bootstrap for the timebeing till puppet is fixed
+#  create_resources('rjil::keystone::user',$users)
 
   ##
   # Tenants can be created without creating users, $tenants can be an array of

@@ -61,7 +61,7 @@ rjil::keystone::disable_db_sync: true
 
 
 rjil::jiocloud::dns::entries:
-  identity.jiocloud.com:
+  iam.staging.jiocloudservices.com:
     cname: lb.keystone.service.consul
   volume.jiocloud.com:
     cname: lb.cinder.service.consul
@@ -80,8 +80,8 @@ rjil::jiocloud::dns::entries:
 ######## Openstack configs #########
 ####################################
 
-keystone_public_address: identity.jiocloud.com
-keystone_private_address: identity.jiocloud.com
+keystone_public_address: iam.staging.jiocloudservices.com
+keystone_private_address: iam.staging.jiocloudservices.com
 
 nova_public_address: compute.jiocloud.com
 nova_internal_address: compute.jiocloud.com
@@ -147,6 +147,10 @@ openstack_extras::auth_file::keystone_protocol: "%{hiera('api_protocol')}"
 ########### client install
 ##################################
 openstack_extras::client::ceilometer: false
+openstack_extras::client::cinder: false
+openstack_extras::client::glance: false
+openstack_extras::client::nova: false
+openstack_extras::client::neutron: false
 
 ########### Openstack ports
 ##################################

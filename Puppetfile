@@ -122,8 +122,8 @@ mod 'stackforge/vswitch',
   :ref => '0.3.0'
 
 mod 'stackforge/openstack_extras',
-  :git => "#{base_url}/jiocloud/puppet-openstack_extras",
-  :ref => 'origin/master'
+  :git => "#{base_url}/anshprat/puppet-openstack_extras",
+  :ref => 'kilo_iam'
 
 mod 'stackforge/heat',
   :git => "#{base_url}/stackforge/puppet-heat",

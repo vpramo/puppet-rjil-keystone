@@ -52,6 +52,8 @@ node /^iamhaproxy\d+/ {
   include rjil::haproxy
   include rjil::haproxy::openstack
   include rjil::jiocloud::consul::consul_alerts
+  include openstack_extras::client
+  include openstack_extras::auth_file
 }
 
 #
