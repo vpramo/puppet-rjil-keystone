@@ -23,5 +23,5 @@ rjil::system::accounts::sudo_users:
 
 rjil::base::self_signed_cert: true
 
-
-
+apache::default_ssl_cert: '/etc/ssl/certs/iam.staging.jiocloudservices.com.cert'
+apache::default_ssl_key: '/etc/ssl/keys/iam.staging.jiocloudservices.com.key'
