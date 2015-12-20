@@ -161,12 +161,11 @@ fixtures:
       ref: origin/master
     pkgbuilder:
       repo: https://github.com/jiocloud/pkgbuilder
+    xinetd:
+      repo: https://github.com/puppetlabs/puppetlabs-xinetd
       ref: origin/master
     galera:
       repo: https://github.com/jiocloud/puppet-galera
-      ref: origin/master
-    xinetd:
-      repo: https://github.com/jiocloud/puppet-xinetd
       ref: origin/master
     virtualbox:
       repo: https://github.com/danzilio/danzilio-virtualbox
