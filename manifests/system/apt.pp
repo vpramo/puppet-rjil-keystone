@@ -15,6 +15,7 @@ class rjil::system::apt (
   $repositories      = {},
   $env_repositories  = {},
   $override_repo     = $::override_repo,
+  $keys              = {},
 ) {
 
   ## two settings to be overrided here in hiera
@@ -30,6 +31,7 @@ class rjil::system::apt (
   }
   Apt::Source<||> -> Package<||>
   Apt::Pin<||> -> Package<||>
+  File['/etc/apt/preferences.d/ignore_rusted_halo_openstack'] -> Package<||>
 
   if $enable_puppetlabs {
     include puppet::repo::puppetlabs
@@ -62,6 +64,14 @@ class rjil::system::apt (
     }
   }
 
+  file { '/etc/apt/preferences.d/ignore_rusted_halo_openstack':
+    content =>
+'Package:  *
+Pin: release o=JioCloud
+Pin-Priority: 1',
+tag   => 'package',
+  }
+
   if ($proxy) {
     file { '/etc/apt/apt.conf.d/90proxy':
       content => "Acquire::Http::Proxy \"${proxy}\";",
@@ -76,6 +86,14 @@ class rjil::system::apt (
       tag   => 'package',
     }
   }
+
+  package { 'ubuntu-cloud-keyring':
+    ensure => 'present'
+  }
+
+  create_resources(apt::key, $keys, {require => Package['ubuntu-cloud-keyring']} )
   create_resources(apt::source, $repositories, {'tag' => 'package'} )
   create_resources(apt::source, $env_repositories, {'tag' => 'package'} )
+
+
 }

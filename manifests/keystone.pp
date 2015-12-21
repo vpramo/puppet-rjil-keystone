@@ -11,11 +11,6 @@ class rjil::keystone(
   $admin_port_internal    = '35357',
   $ssl                    = false,
   $ceph_radosgw_enabled   = false,
-  $cache_enabled          = false,
-  $cache_config_prefix    = 'cache.keystone',
-  $cache_expiration_time  = '600',
-  $cache_backend          = undef,
-  $cache_backend_argument = undef,
   $disable_db_sync        = false,
   $rewrites               = undef,
   $headers                = undef,
@@ -26,6 +21,8 @@ class rjil::keystone(
   } else {
     $address = $public_address
   }
+
+include rjil::test::keystone
 
   Rjil::Test::Check {
     ssl     => $ssl,
@@ -52,8 +49,8 @@ class rjil::keystone(
 
   # ensure that we don't even try to configure the
   # database connection until the service is up
-  ensure_resource( 'rjil::service_blocker', 'mysql', {})
-  Rjil::Service_blocker['mysql'] -> Keystone_config['database/connection']
+  ensure_resource( 'rjil::service_blocker', "$::hostname.galera", {})
+  Rjil::Service_blocker["$::hostname.galera"] -> Keystone_config['database/connection']
 
   if $disable_db_sync {
     Exec <| title == 'keystone-manage db_sync' |> {
@@ -94,17 +91,6 @@ class rjil::keystone(
     proxy_pass      => [ { path => '/', url => "http://localhost:${admin_port_internal}/"  } ],
     rewrites        => $rewrites,
     headers         => $headers,
-  }
-
-  ## Keystone cache configuration
-  if $cache_enabled {
-    keystone_config {
-      'cache/enabled':          value => 'True';
-      'cache/config_prefix':    value => $cache_config_prefix;
-      'cache/expiration_time':  value => $cache_expiration_time;
-      'cache/cache_backend':    value => $cache_backend;
-      'cache/backend_argument': value => $cache_backend_argument;
-    }
   }
 
   Class['rjil::keystone'] -> Rjil::Service_blocker<| title == 'keystone-admin' |>

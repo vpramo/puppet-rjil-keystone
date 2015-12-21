@@ -1,0 +1,28 @@
+rjil::system::apt::proxy: "http://10.140.218.59:3128/"
+rjil::system::ntp::run_ntpdate: false
+ntp::servers:
+  - 10.140.214.14
+
+public_address: "%{ipaddress_10_140_214_0_23}"
+public_interface: "%{interface_10_140_214_0_23}"
+private_address: "%{ipaddress_10_140_214_0_23}"
+private_interface: "%{interface_10_140_214_0_23}"
+
+rjil::system::proxies:
+  "no":
+    url: "127.0.0.1,localhost,consul,jiocloud.com,jiocloudservices.com"
+  http:
+    url: "http://10.140.218.59:3128/"
+  https:
+    url: "http://10.140.218.59:3128/"
+
+rjil::system::accounts::active_users: [anshup,roopali,ajayaa,neeraj,himanshus]
+rjil::system::accounts::sudo_users:
+  admin:
+    users: [anshup,roopali,ajayaa,neeraj,himanshus]
+
+rjil::base::self_signed_cert: true
+
+apache::default_ssl_cert: '/etc/ssl/certs/iam.staging.jiocloudservices.com.crt'
+apache::default_ssl_key: '/etc/ssl/keys/iam.staging.jiocloudservices.com.key'
+rjil::trust_selfsigned_cert::cert: '/etc/ssl/certs/iam.staging.jiocloudservices.com.crt'

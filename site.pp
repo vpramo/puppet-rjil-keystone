@@ -24,6 +24,7 @@ node /^iamdb\d+/ {
   include rjil::memcached
   include openstack_extras::client
   include rjil::galera
+  include rjil::commonservices::omdclient
 }
 
 #
@@ -40,6 +41,7 @@ node /^iam\d+/ {
   include rjil::haproxy::galera
   include openstack_extras::client
   include openstack_extras::auth_file
+  include rjil::commonservices::omdclient
 }
 
 #
@@ -52,6 +54,9 @@ node /^iamhaproxy\d+/ {
   include rjil::haproxy
   include rjil::haproxy::openstack
   include rjil::jiocloud::consul::consul_alerts
+  include openstack_extras::client
+  include openstack_extras::auth_file
+  include rjil::commonservices::omdclient
 }
 
 #

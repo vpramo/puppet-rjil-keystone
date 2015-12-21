@@ -9,7 +9,8 @@ fixtures:
       repo: git://github.com/puppetlabs/puppetlabs-inifile.git
       ref: 41e2ddbc1cd861247e57d16b778cbe891602f509
     openstack_extras:
-      repo: https://github.com/bodepd/puppet-openstack_extras
+      repo: https://github.com/anshprat/puppet-openstack_extras
+      ref: 'origin/kilo_iam'
     dhcp:
       repo: https://github.com/JioCloud/puppetlabs-dhcp
     heat:
@@ -71,7 +72,7 @@ fixtures:
       ref: 'origin/svn_to_git_2'
     apt:
       repo: https://github.com/puppetlabs/puppetlabs-apt
-      ref: 1.8.0
+      ref: 2.2.0
     cinder:
       repo: https://github.com/stackforge/puppet-cinder
       ref: 4.0.0
@@ -160,10 +161,12 @@ fixtures:
       ref: origin/master
     pkgbuilder:
       repo: https://github.com/jiocloud/pkgbuilder
+    xinetd:
+      repo: https://github.com/puppetlabs/puppetlabs-xinetd
       ref: origin/master
     galera:
       repo: https://github.com/jiocloud/puppet-galera
       ref: origin/master
-    xinetd:
-      repo: https://github.com/jiocloud/puppet-xinetd
+    virtualbox:
+      repo: https://github.com/danzilio/danzilio-virtualbox
       ref: origin/master

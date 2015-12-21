@@ -67,15 +67,15 @@ mod 'puppetlabs/apache',
 
 mod 'puppetlabs/apt',
   :git => "#{base_url}/puppetlabs/puppetlabs-apt",
-  :ref => '1.8.0'
+  :ref => '2.2.0'
 
 mod 'stackforge/cinder',
   :git => "#{base_url}/stackforge/puppet-cinder",
   :ref => 'stable/icehouse'
 
 mod 'stackforge/openstacklib',
-  :git => "#{base_url}/jiocloud/puppet-openstacklib",
-  :ref => 'origin/master'
+  :git => "#{base_url}/bodepd/puppet-openstacklib",
+  :ref => 'kilo'
 
 mod 'stackforge/ironic',
   :git => "#{base_url}/jiocloud/puppet-ironic",
@@ -95,7 +95,7 @@ mod 'stackforge/glance',
 
 mod 'puppetlabs/keystone',
   :git => "#{base_url}/stackforge/puppet-keystone",
-  :ref => '89a650631189ffc2f857845d138666a046f0ae5f'
+  :ref => 'stable/kilo'
 
 mod 'puppetlabs/mysql',
   :git => "#{base_url}/puppetlabs/puppetlabs-mysql",
@@ -122,8 +122,8 @@ mod 'stackforge/vswitch',
   :ref => '0.3.0'
 
 mod 'stackforge/openstack_extras',
-  :git => "#{base_url}/jiocloud/puppet-openstack_extras",
-  :ref => 'origin/master'
+  :git => "#{base_url}/anshprat/puppet-openstack_extras",
+  :ref => 'kilo_iam'
 
 mod 'stackforge/heat',
   :git => "#{base_url}/stackforge/puppet-heat",
@@ -237,5 +237,5 @@ mod 'michaeltchapman/galera',
   :ref => 'master'
 
 mod 'puppetlabs/xinetd',
-  :git => "#{base_url}/jiocloud/puppet-xinetd",
+  :git => "#{base_url}/jiocloud/puppetlabs-xinetd",
   :ref => 'master'

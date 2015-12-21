@@ -4,10 +4,11 @@
 #
 
 class rjil::galera(
-  $galera_role  = 'replica',
-  $mysql_max_connections = 1024,
-  $dbs = {},
-  $bind_address = '0.0.0.0',
+  $galera_role            = 'replica',
+  $mysql_max_connections  = 1024,
+  $dbs                    = {},
+  $bind_address           = '0.0.0.0',
+  $galera_master_hostname = 'iamdb1',
 ) {
   ## Setup test code
 
@@ -18,17 +19,21 @@ class rjil::galera(
   create_resources('rjil::db::instance', $dbs)
 
   $galera_servers = values(service_discover_consul('mysql', 'node'))
-  $galera_master = values(service_discover_consul('mysql', 'master'))
+  if ($galera_master_hostname in $::fqdn){
+    $galera_master = $::fqdn
+  } else {
+    $galera_master = $galera_master_hostname
+  }
   class { '::galera':
-	  galera_servers     => $galera_servers,
-	  galera_master      => $galera_master,
-	  vendor_type        => 'mariadb',
-	  configure_firewall => false,
+    galera_servers     => $galera_servers,
+    galera_master      => $galera_master,
+    vendor_type        => 'mariadb',
+    configure_firewall => false,
     override_options   => { 'mysqld' => {
-															            'max_connections' => $mysql_max_connections,
-															            'bind-address'    => $bind_address,
-  													             }
-								          },
+                                          'max_connections' => $mysql_max_connections,
+                                          'bind-address'    => $bind_address,
+                                        }
+                          },
   }
 
   if ($bind_address == '0.0.0.0') {
