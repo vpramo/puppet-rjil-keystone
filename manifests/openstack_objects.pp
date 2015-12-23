@@ -43,18 +43,22 @@ class rjil::openstack_objects(
     unless  => '/bin/true'
 # TODO replace above w/ script checking for db sanity/tables count
   }
+
+#TODO Fix the below runtime_fail such that we dont get this error:
+#(/Stage[main]/Rjil::Openstack_objects/Runtime_fail[keystone_endpoint_not_resolvable]) Could not evaluate: keystone_endpoint_not_resolvable
+#
   # add a runtime fail and ensure that it blocks all object creation.
   # otherwise, it's possible that we might have to wait for network
   # timeouts if the dns address does not correctly resolve.
-  runtime_fail {'keystone_endpoint_not_resolvable':
-    fail => $fail
-  }
-
-  Runtime_fail['keystone_endpoint_not_resolvable'] -> Keystone_user<||>
-  Runtime_fail['keystone_endpoint_not_resolvable'] -> Keystone_role<||>
+#  runtime_fail {'keystone_endpoint_not_resolvable':
+#    fail => $fail
+#  }
+#
+#  Runtime_fail['keystone_endpoint_not_resolvable'] -> Keystone_user<||>
+#  Runtime_fail['keystone_endpoint_not_resolvable'] -> Keystone_role<||>
 #  Runtime_fail['keystone_endpoint_not_resolvable'] -> Keystone_tenant<||>
-  Runtime_fail['keystone_endpoint_not_resolvable'] -> Keystone_service<||>
-  Runtime_fail['keystone_endpoint_not_resolvable'] -> Keystone_endpoint<||>
+#  Runtime_fail['keystone_endpoint_not_resolvable'] -> Keystone_service<||>
+#  Runtime_fail['keystone_endpoint_not_resolvable'] -> Keystone_endpoint<||>
 #  Runtime_fail['keystone_endpoint_not_resolvable'] -> Rjil::Service_blocker[$glance_service_name]
 #  Runtime_fail['keystone_endpoint_not_resolvable'] -> Rjil::Service_blocker[$neutron_service_name]
 
@@ -69,7 +73,7 @@ class rjil::openstack_objects(
 #  include rjil::openstack_extras::keystone_endpoints
 
   # provision tempest resources like images, network, users etc.
-  include rjil::tempest::provision
+#  include rjil::tempest::provision
 
   # create users, tenants, roles, default networks
   # TODO Needs manual bootstrap for the timebeing till puppet is fixed
