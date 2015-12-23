@@ -724,6 +724,78 @@ rjil::system::apt::repositories:
         =xg4S
         -----END PGP PUBLIC KEY BLOCK-----
     pin: 700  
+  pkgbuilder_archive:
+    location: 'http://10.140.221.229/apt/anshprat/anshprat/'
+    release: 'jiocloud'
+    repos: 'main'
+    architecture: 'amd64'
+    include:
+      src: false
+    key:
+      id: '73C00DD5862EE3AB537818456D10FB2A9AA3A617'
+      content: |
+        -----BEGIN PGP PUBLIC KEY BLOCK-----
+        Version: GnuPG v1
+
+        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
+        7OipUuGOjnqOQqUvTexQrPtk
+        =g6no
+        -----END PGP PUBLIC KEY BLOCK-----
 
 
 ## Add some other keys
