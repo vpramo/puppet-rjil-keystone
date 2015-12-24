@@ -2,11 +2,9 @@
 # Manifest file for adding pacemaker and corosync
 #
 class rjil::pacemaker(
-  $ipaddress          = $::ipaddress,
-  $enable_secauth     = true,
-  $authkey            = '/var/lib/puppet/ssl/certs/ca.pem',
-  $unicast_addresses  = [],
-
+  $ipaddress                  = $::ipaddress,
+  $enable_secauth             = true,
+  $authkey                    = '/var/lib/puppet/ssl/certs/ca.pem',
 ){
 
   $unicast_addresses = values(service_discover_consul('haproxy', 'global'))
