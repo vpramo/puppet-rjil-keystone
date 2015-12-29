@@ -8,10 +8,17 @@ class rjil::pacemaker(
   $haproxy_vip_nic              = 'eth1',
   $haproxy_vip_ip               = '192.168.100.29',
   $haproxy_vip_ip_netmask       = '24',
-  $haproxy_vip_monitor_interval = '10s'
+  $haproxy_vip_monitor_interval = '10s',
+  $stonith_enabled              = false,
+  $no_quorum_policy             = 'ignore',
 ){
 
   $unicast_addresses = values(service_discover_consul('haproxy', 'global'))
+
+  rjil::test::check { 'pacemaker':
+    check_type => 'validation',
+    type       => 'pacemaker',
+  }
 
   class { 'corosync':
     enable_secauth    => $enable_secauth,
@@ -33,7 +40,12 @@ class rjil::pacemaker(
     operations      => { 'monitor' => { 'interval' => $haproxy_vip_monitor_interval } },
   }
 
-  rjil::test::check { 'pacemaker':
+  cs_property { 'stonith-enabled' :
+    value   => $stonith_enabled,
+  }
+
+  cs_property { 'no-quorum-policy' :
+    value   => $no_quorum_policy,
   }
 
 }
