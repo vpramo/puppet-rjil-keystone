@@ -2,9 +2,13 @@
 # Manifest file for adding pacemaker and corosync
 #
 class rjil::pacemaker(
-  $ipaddress                  = $::ipaddress,
-  $enable_secauth             = true,
-  $authkey                    = '/var/lib/puppet/ssl/certs/ca.pem',
+  $ipaddress                    = $::ipaddress,
+  $enable_secauth               = false,
+  $authkey                      = '/etc/corosync/authkey',
+  $haproxy_vip_nic              = 'eth1',
+  $haproxy_vip_ip               = '192.168.100.29',
+  $haproxy_vip_ip_netmask       = '24',
+  $haproxy_vip_monitor_interval = '10s'
 ){
 
   $unicast_addresses = values(service_discover_consul('haproxy', 'global'))
@@ -14,6 +18,7 @@ class rjil::pacemaker(
 	  authkey           => $authkey,
 	  bind_address      => $ipaddress,
 	  unicast_addresses => $unicast_addresses,
+	  quorum_members    => $unicast_addresses,
 	}
 
 	corosync::service { 'pacemaker':
@@ -24,7 +29,7 @@ class rjil::pacemaker(
 	  primitive_class => 'ocf',
 	  primitive_type  => 'IPaddr2',
 	  provided_by     => 'heartbeat',
-	  parameters      => { 'ip' => '192.168.100.29', 'cidr_netmask' => '23' },
-	  operations      => { 'monitor' => { 'interval' => '10s' } },
+	  parameters      => { 'ip' => $haproxy_vip_ip, 'cidr_netmask' => $haproxy_vip_ip_netmask, 'nic' =>$haproxy_vip_nic },
+	  operations      => { 'monitor' => { 'interval' => $haproxy_vip_monitor_interval } },
 	}
 }

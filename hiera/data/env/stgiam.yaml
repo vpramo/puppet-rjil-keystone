@@ -26,3 +26,10 @@ rjil::base::self_signed_cert: true
 apache::default_ssl_cert: '/etc/ssl/certs/iam.staging.jiocloudservices.com.crt'
 apache::default_ssl_key: '/etc/ssl/keys/iam.staging.jiocloudservices.com.key'
 rjil::trust_selfsigned_cert::cert: '/etc/ssl/certs/iam.staging.jiocloudservices.com.crt'
+
+keystone_public_address: iam.staging.jiocloudservices.com
+keystone_private_address: iam.staging.jiocloudservices.com
+
+rjil::jiocloud::dns::entries:
+  iam.staging.jiocloudservices.com:
+    cname: lb.keystone.service.consul
