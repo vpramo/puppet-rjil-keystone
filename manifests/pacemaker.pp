@@ -20,6 +20,11 @@ class rjil::pacemaker(
     type       => 'pacemaker',
   }
 
+  rjil::test::check { 'corosync':
+    check_type => 'validation',
+    type       => 'corosync',
+  }
+
   class { 'corosync':
     enable_secauth    => $enable_secauth,
     authkey           => $authkey,
@@ -32,20 +37,23 @@ class rjil::pacemaker(
     version => '0',
   }
 
-  cs_primitive { 'haproxy_vip':
-    primitive_class => 'ocf',
-    primitive_type  => 'IPaddr2',
-    provided_by     => 'heartbeat',
-    parameters      => { 'ip' => $haproxy_vip_ip, 'cidr_netmask' => $haproxy_vip_ip_netmask, 'nic' =>$haproxy_vip_nic },
-    operations      => { 'monitor' => { 'interval' => $haproxy_vip_monitor_interval } },
-  }
-
   cs_property { 'stonith-enabled' :
     value   => $stonith_enabled,
+    ensure  => 'present',
   }
 
   cs_property { 'no-quorum-policy' :
     value   => $no_quorum_policy,
   }
 
+  cs_primitive { 'haproxy_vip':
+    primitive_class => 'ocf',
+    primitive_type  => 'IPaddr2',
+    provided_by     => 'heartbeat',
+    parameters      => { 'ip' => $haproxy_vip_ip,
+                         'cidr_netmask' => $haproxy_vip_ip_netmask,
+                         'nic' =>$haproxy_vip_nic,
+                       },
+    operations      => { 'monitor' => { 'interval' => $haproxy_vip_monitor_interval } },
+  }
 }
