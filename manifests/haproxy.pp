@@ -27,6 +27,8 @@ class rjil::haproxy (
                             ],
   $global_maxconn          = 5000,
   $stats                   = 'socket /var/run/haproxy mode 777',
+  $service_ensure          = 'running',
+  $service_manage          = true,
 ) {
 
   rjil::test { 'haproxy.sh': }
@@ -55,7 +57,10 @@ class rjil::haproxy (
 
   class { '::haproxy':
     global_options   => $haproxy_globals,
-    defaults_options => $haproxy_defaults
+    defaults_options => $haproxy_defaults,
+    service_ensure   => $service_ensure,
+    service_manage   => $service_manage,
+
   }
 
   rjil::jiocloud::logrotate { 'haproxy': }

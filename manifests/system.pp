@@ -5,6 +5,7 @@ class rjil::system(
   $proxies                       = {},
   $dhclient_override_domain_name = undef,
   $puppet_report_keep_hours      = 24,
+  $enable_collectd_metrics       = false,
 ) {
 
   ##
@@ -18,7 +19,10 @@ class rjil::system(
 
   include rjil::system::apt
   include rjil::system::accounts
-  include rjil::system::metrics
+
+  if $enable_collectd_metrics {
+    include rjil::system::metrics
+  }
 
   ensure_packages(['molly-guard','tmpreaper'])
 

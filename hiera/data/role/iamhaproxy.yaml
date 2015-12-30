@@ -1,1 +1,3 @@
 rjil::haproxy::consul_service_tags: ['global']
+rjil::haproxy::service_ensure: 'stopped'
+rjil::haproxy::service_manage: false
