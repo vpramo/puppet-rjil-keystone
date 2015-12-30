@@ -23,13 +23,15 @@ rjil::system::accounts::sudo_users:
 
 rjil::base::self_signed_cert: true
 
-apache::default_ssl_cert: '/etc/ssl/certs/iam.staging.jiocloudservices.com.crt'
-apache::default_ssl_key: '/etc/ssl/keys/iam.staging.jiocloudservices.com.key'
-rjil::trust_selfsigned_cert::cert: '/etc/ssl/certs/iam.staging.jiocloudservices.com.crt'
+iam_endpoint_name: "iam.ind-west-1.staging.jiocloudservices.com"
 
-keystone_public_address: iam.staging.jiocloudservices.com
-keystone_private_address: iam.staging.jiocloudservices.com
+apache::default_ssl_cert: "/etc/ssl/certs/%{hiera('iam_endpoint_name')}.crt"
+apache::default_ssl_key: "/etc/ssl/keys/%{hiera('iam_endpoint_name')}.key"
+rjil::trust_selfsigned_cert::cert: "/etc/ssl/certs/%{hiera('iam_endpoint_name')}.crt"
+
+keystone_public_address: "%{hiera('iam_endpoint_name')}"
+keystone_private_address: "%{hiera('iam_endpoint_name')}"
 
 rjil::jiocloud::dns::entries:
-  iam.staging.jiocloudservices.com:
+  "%{hiera('iam_endpoint_name')}":
     cname: lb.keystone.service.consul
