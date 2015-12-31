@@ -35,3 +35,6 @@ keystone_private_address: "%{hiera('iam_endpoint_name')}"
 rjil::jiocloud::dns::entries:
   "%{hiera('iam_endpoint_name')}":
     cname: lb.keystone.service.consul
+
+rjil::pacemaker::haproxy_vip_ip: 10.140.214.29
+
