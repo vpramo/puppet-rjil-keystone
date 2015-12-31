@@ -1047,3 +1047,6 @@ here is what I envision:
   - developers can check out their local code into the puppet-rjil environment
   - set it up as a mount in vagrant (or rely on the fact it will be automounted into /vagrant/)
   - customize the load path for whatever is using it
+
+## Version
+ - Fake version bump for build purpose
