@@ -37,4 +37,4 @@ rjil::jiocloud::dns::entries:
     cname: lb.keystone.service.consul
 
 rjil::pacemaker::haproxy_vip_ip: 10.140.214.29
-
+rjil::pacemaker::haproxy_vip_nic: em3
