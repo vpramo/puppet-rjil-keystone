@@ -50,15 +50,15 @@ class rjil::openstack_objects(
   # add a runtime fail and ensure that it blocks all object creation.
   # otherwise, it's possible that we might have to wait for network
   # timeouts if the dns address does not correctly resolve.
-#  runtime_fail {'keystone_endpoint_not_resolvable':
-#    fail => $fail
-#  }
+  runtime_fail {'keystone_endpoint_not_resolvable':
+    fail => $fail
+  }
 #
-#  Runtime_fail['keystone_endpoint_not_resolvable'] -> Keystone_user<||>
-#  Runtime_fail['keystone_endpoint_not_resolvable'] -> Keystone_role<||>
-#  Runtime_fail['keystone_endpoint_not_resolvable'] -> Keystone_tenant<||>
-#  Runtime_fail['keystone_endpoint_not_resolvable'] -> Keystone_service<||>
-#  Runtime_fail['keystone_endpoint_not_resolvable'] -> Keystone_endpoint<||>
+  Runtime_fail['keystone_endpoint_not_resolvable'] -> Keystone_user<||>
+  Runtime_fail['keystone_endpoint_not_resolvable'] -> Keystone_role<||>
+  Runtime_fail['keystone_endpoint_not_resolvable'] -> Keystone_tenant<||>
+  Runtime_fail['keystone_endpoint_not_resolvable'] -> Keystone_service<||>
+  Runtime_fail['keystone_endpoint_not_resolvable'] -> Keystone_endpoint<||>
 #  Runtime_fail['keystone_endpoint_not_resolvable'] -> Rjil::Service_blocker[$glance_service_name]
 #  Runtime_fail['keystone_endpoint_not_resolvable'] -> Rjil::Service_blocker[$neutron_service_name]
 
@@ -70,14 +70,14 @@ class rjil::openstack_objects(
 
   # provision keystone objects only for keystone service, not for all
   # TODO Needs manual bootstrap for the timebeing till puppet is fixed
-#  include rjil::openstack_extras::keystone_endpoints
+  include rjil::openstack_extras::keystone_endpoints
 
   # provision tempest resources like images, network, users etc.
 #  include rjil::tempest::provision
 
   # create users, tenants, roles, default networks
   # TODO Needs manual bootstrap for the timebeing till puppet is fixed
-#  create_resources('rjil::keystone::user',$users)
+  create_resources('rjil::keystone::user',$users)
 
   ##
   # Tenants can be created without creating users, $tenants can be an array of

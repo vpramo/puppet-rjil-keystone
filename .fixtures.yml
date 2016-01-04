@@ -170,3 +170,6 @@ fixtures:
     virtualbox:
       repo: https://github.com/danzilio/danzilio-virtualbox
       ref: origin/master
+    corosync:
+      repo: https://github.com/puppet-community/puppet-corosync
+      ref: origin/master

@@ -4,7 +4,8 @@
 #
 
 class rjil::jiocloud (
-  $consul_role = 'agent'
+  $consul_role               = 'agent',
+  $ensure_maybe_upgrade_cron = 'present',
 ) {
 
   if ! member(['agent', 'server', 'bootstrapserver'], $consul_role) {
@@ -55,6 +56,7 @@ class rjil::jiocloud (
     group  => 'root'
   }
   cron { 'maybe-upgrade':
+    ensure  => $ensure_maybe_upgrade_cron,
     command => 'run-one /usr/local/bin/maybe-upgrade.sh 2>&1 | logger',
     user    => 'root',
     require => Package['run-one'],

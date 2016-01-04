@@ -57,6 +57,7 @@ node /^iamhaproxy\d+/ {
   include openstack_extras::client
   include openstack_extras::auth_file
   include rjil::commonservices::omdclient
+  include rjil::pacemaker
 }
 
 #

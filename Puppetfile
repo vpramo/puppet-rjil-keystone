@@ -239,3 +239,7 @@ mod 'michaeltchapman/galera',
 mod 'puppetlabs/xinetd',
   :git => "#{base_url}/jiocloud/puppetlabs-xinetd",
   :ref => 'master'
+
+mod 'puppetlabs/corosync',
+  :git => "#{base_url}/puppet-community/puppet-corosync",
+  :ref => 'master'
