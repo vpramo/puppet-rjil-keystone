@@ -39,3 +39,10 @@ rjil::jiocloud::dns::entries:
 rjil::pacemaker::haproxy_vip_ip: 10.140.214.29
 rjil::pacemaker::haproxy_vip_nic: em3
 rjil::pacemaker::haproxy_vip_ip_netmask: 23
+
+rjil::keystone::enable_primary: true
+rjil::keystone::enable_secondary: true
+iam_secondary_endpoint_name: "iam.ind-west-1.staging.deprecated.jiocloudservices.com"
+rjil::keystone::server_name_secondary: "%{hiera('iam_secondary_endpoint_name')}"
+rjil::keystone::secondary_ssl_cert: "/etc/ssl/certs/%{hiera('iam_secondary_endpoint_name')}.crt"
+rjil::keystone::secondary_ssl_key: "/etc/ssl/keys/%{hiera('iam_secondary_endpoint_name')}.key"

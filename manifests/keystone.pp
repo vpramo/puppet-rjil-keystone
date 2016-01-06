@@ -14,6 +14,11 @@ class rjil::keystone(
   $disable_db_sync        = false,
   $rewrites               = undef,
   $headers                = undef,
+  $enable_primary         = true,
+  $enable_secondary       = false,
+  $server_name_secondary  = 'localhost-secondary',
+  $secondary_ssl_cert     = undef,
+  $secondary_ssl_key      = undef,
 ) {
 
   if $public_address == '0.0.0.0' {
@@ -65,34 +70,70 @@ include rjil::test::keystone
     include rjil::keystone::radosgw
   }
 
-  ## Configure apache reverse proxy
-  apache::vhost { 'keystone':
-    servername      => $server_name,
-    serveradmin     => $admin_email,
-    port            => $public_port,
-    ssl             => $ssl,
-    docroot         => '/usr/lib/cgi-bin/keystone',
-    error_log_file  => 'keystone.log',
-    access_log_file => 'keystone.log',
-    proxy_pass      => [ { path => '/', url => "http://localhost:${public_port_internal}/"  } ],
-    rewrites        => $rewrites,
-    headers         => $headers,
+  if $enable_primary{
+    ## Configure apache reverse proxy
+    apache::vhost { 'keystone':
+      servername      => $server_name,
+      serveradmin     => $admin_email,
+      port            => $public_port,
+      ssl             => $ssl,
+      docroot         => '/usr/lib/cgi-bin/keystone',
+      error_log_file  => 'keystone.log',
+      access_log_file => 'keystone.log',
+      proxy_pass      => [ { path => '/', url => "http://localhost:${public_port_internal}/"  } ],
+      rewrites        => $rewrites,
+      headers         => $headers,
+    }
+
+    ## Configure apache reverse proxy
+    apache::vhost { 'keystone-admin':
+      servername      => $server_name,
+      serveradmin     => $admin_email,
+      port            => $admin_port,
+      ssl             => $ssl,
+      docroot         => '/usr/lib/cgi-bin/keystone',
+      error_log_file  => 'keystone.log',
+      access_log_file => 'keystone.log',
+      proxy_pass      => [ { path => '/', url => "http://localhost:${admin_port_internal}/"  } ],
+      rewrites        => $rewrites,
+      headers         => $headers,
+    }
   }
 
-  ## Configure apache reverse proxy
-  apache::vhost { 'keystone-admin':
-    servername      => $server_name,
-    serveradmin     => $admin_email,
-    port            => $admin_port,
-    ssl             => $ssl,
-    docroot         => '/usr/lib/cgi-bin/keystone',
-    error_log_file  => 'keystone.log',
-    access_log_file => 'keystone.log',
-    proxy_pass      => [ { path => '/', url => "http://localhost:${admin_port_internal}/"  } ],
-    rewrites        => $rewrites,
-    headers         => $headers,
-  }
+  if $enable_secondary {
+    ## Configure apache reverse proxy
+    ## Using serveralias instead of setting new vhosts would cause SSL error
+    apache::vhost { 'keystone-secondary':
+      servername      => $server_name_secondary,
+      serveradmin     => $admin_email,
+      port            => $public_port,
+      ssl             => $ssl,
+      docroot         => '/usr/lib/cgi-bin/keystone',
+      error_log_file  => 'keystone-secondary.log',
+      access_log_file => 'keystone-secondary.log',
+      proxy_pass      => [ { path => '/', url => "http://localhost:${public_port_internal}/"  } ],
+      rewrites        => $rewrites,
+      headers         => $headers,
+      ssl_cert        => $secondary_ssl_cert,
+      ssl_key         => $secondary_ssl_key,
+    }
 
+    ## Configure apache reverse proxy
+    apache::vhost { 'keystone-admin-secondary':
+      servername      => $server_name_secondary,
+      serveradmin     => $admin_email,
+      port            => $admin_port,
+      ssl             => $ssl,
+      docroot         => '/usr/lib/cgi-bin/keystone',
+      error_log_file  => 'keystone-secondary.log',
+      access_log_file => 'keystone-secondary.log',
+      proxy_pass      => [ { path => '/', url => "http://localhost:${admin_port_internal}/"  } ],
+      rewrites        => $rewrites,
+      headers         => $headers,
+      ssl_cert        => $secondary_ssl_cert,
+      ssl_key         => $secondary_ssl_key,
+    }
+  }
   Class['rjil::keystone'] -> Rjil::Service_blocker<| title == 'keystone-admin' |>
 
   $keystone_logs = ['keystone-manage',
