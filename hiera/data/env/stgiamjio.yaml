@@ -1,0 +1,121 @@
+rjil::system::apt::proxy: "http://10.140.218.59:3128/"
+rjil::system::ntp::run_ntpdate: false
+ntp::servers:
+  - 10.140.214.14
+
+public_address: "%{ipaddress_10_140_214_0_23}"
+public_interface: "%{interface_10_140_214_0_23}"
+private_address: "%{ipaddress_10_140_214_0_23}"
+private_interface: "%{interface_10_140_214_0_23}"
+
+rjil::system::proxies:
+  "no":
+    url: "127.0.0.1,localhost,consul,jiocloud.com,jiocloudservices.com"
+  http:
+    url: "http://10.140.218.59:3128/"
+  https:
+    url: "http://10.140.218.59:3128/"
+
+rjil::system::accounts::active_users: [anshup,roopali,ajayaa,neeraj,himanshus]
+rjil::system::accounts::sudo_users:
+  admin:
+    users: [anshup,roopali,ajayaa,neeraj,himanshus]
+
+rjil::base::self_signed_cert: true
+
+iam_endpoint_name: "iam.ind-west-1.staging.jiocloudservices.com"
+
+apache::default_ssl_cert: "/etc/ssl/certs/%{hiera('iam_endpoint_name')}.crt"
+apache::default_ssl_key: "/etc/ssl/keys/%{hiera('iam_endpoint_name')}.key"
+rjil::trust_selfsigned_cert::cert: "/etc/ssl/certs/%{hiera('iam_endpoint_name')}.crt"
+
+keystone_public_address: "%{hiera('iam_endpoint_name')}"
+keystone_private_address: "%{hiera('iam_endpoint_name')}"
+
+rjil::jiocloud::dns::entries:
+  "%{hiera('iam_endpoint_name')}":
+    cname: lb.keystone.service.consul
+
+rjil::pacemaker::haproxy_vip_ip: 10.140.214.30
+rjil::pacemaker::haproxy_vip_nic: em3
+rjil::pacemaker::haproxy_vip_ip_netmask: 23
+
+rjil::system::apt::env_repositories:
+  jio_keystone:
+    location: 'http://10.140.221.229/apt/anshprat/keystone/'
+    release: 'jiocloud'
+    repos: 'main'
+    architecture: 'amd64'
+    include:
+      src: false
+    key:
+      id: 'F7CF6A83A23BF5F79CE801FD2285E34A9CD18FAC'
+      content: |
+        -----BEGIN PGP PUBLIC KEY BLOCK-----
+        Version: GnuPG v1
+
+        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
+        UxWm7E4sBTwGlGQclWlAKFCw
+        =4rOs
+        -----END PGP PUBLIC KEY BLOCK-----
+    pin: 800
+
+admin_email: joicloud.iamteam@ril.com
+
+test_user_password: "afbf6d5419f8efd7cf!@#$WERTYUI@#$%^&*"
+admin_password: "110d53b1feJHSGDJ%^&(*&*(+__+J2d1ad294c481a564e9e"
