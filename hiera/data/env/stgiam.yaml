@@ -23,7 +23,7 @@ rjil::system::accounts::sudo_users:
 
 rjil::base::self_signed_cert: true
 
-iam_endpoint_name: "iam.ind-west-1.staging.jiocloudservices.com"
+iam_endpoint_name: "iam.ind-west-1.staging.deprecated.jiocloudservices.com"
 
 apache::default_ssl_cert: "/etc/ssl/certs/%{hiera('iam_endpoint_name')}.crt"
 apache::default_ssl_key: "/etc/ssl/keys/%{hiera('iam_endpoint_name')}.key"
@@ -41,7 +41,7 @@ rjil::pacemaker::haproxy_vip_nic: em3
 rjil::pacemaker::haproxy_vip_ip_netmask: 23
 
 rjil::keystone::enable_primary: true
-rjil::keystone::enable_secondary: true
+rjil::keystone::enable_secondary: false
 iam_secondary_endpoint_name: "iam.ind-west-1.staging.deprecated.jiocloudservices.com"
 rjil::keystone::server_name_secondary: "%{hiera('iam_secondary_endpoint_name')}"
 rjil::keystone::secondary_ssl_cert: "/etc/ssl/certs/%{hiera('iam_secondary_endpoint_name')}.crt"
