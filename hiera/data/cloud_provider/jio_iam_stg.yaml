@@ -1,0 +1,45 @@
+rjil::openstack_objects::users:
+  "%{hiera('test_user_name')}":
+    password: "%{hiera('test_user_password')}"
+    user_tenant: "%{hiera('test_user_tenant')}"
+    create_network: false
+  "test_user_1":
+    password: "test_u53r_1_P$%%W)RD"
+    user_tenant: "test_tenant_1"
+    create_network: false
+  "test_user_2":
+    password: "test_u53r_2_P$%%W)RD"
+    user_tenant: "test_tenant_1"
+    create_network: false
+  "test_user_3":
+    password: "test_u53r_3_P$%%W)RD"
+    user_tenant: "test_tenant_1"
+    create_network: false
+  "test_user_4":
+    password: "test_u53r_4_P$%%W)RD"
+    user_tenant: "test_tenant_1"
+    create_network: false
+  "test_user_5":
+    password: "test_u53r_5_P$%%W)RD"
+    user_tenant: "test_tenant_1"
+    create_network: false
+  "test_user_6":
+    password: "test_u53r_6_P$%%W)RD"
+    user_tenant: "test_tenant_2"
+    create_network: false
+  "test_user_7":
+    password: "test_u53r_7_P$%%W)RD"
+    user_tenant: "test_tenant_2"
+    create_network: false
+  "test_user_8":
+    password: "test_u53r_8_P$%%W)RD"
+    user_tenant: "test_tenant_2"
+    create_network: false
+  "test_user_9":
+    password: "test_u53r_9_P$%%W)RD"
+    user_tenant: "test_tenant_2"
+    create_network: false
+  "test_user_10":
+    password: "test_u53r_10_P$%%W)RD"
+    user_tenant: "test_tenant_2"
+    create_network: false

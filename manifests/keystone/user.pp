@@ -12,10 +12,7 @@ define rjil::keystone::user (
   $create_network = true,
 ) {
 
-  keystone_tenant { $user_tenant:
-    ensure      => present,
-    enabled     => true,
-  }
+  ensure_resource('keystone_tenant', "$user_tenant", { 'ensure' => 'present', 'enabled' => true,})
 
   keystone_user { $username:
     ensure   => present,
