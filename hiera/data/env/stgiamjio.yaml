@@ -40,6 +40,9 @@ rjil::pacemaker::haproxy_vip_ip: 10.140.214.30
 rjil::pacemaker::haproxy_vip_nic: em3
 rjil::pacemaker::haproxy_vip_ip_netmask: 23
 
+apt::purge:
+  sources.list: true
+
 rjil::system::apt::env_repositories:
   jio_keystone:
     location: 'http://10.140.221.229/apt/anshprat/keystone/'
