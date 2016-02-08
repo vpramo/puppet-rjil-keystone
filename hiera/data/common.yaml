@@ -806,6 +806,78 @@ rjil::system::apt::repositories:
         7OipUuGOjnqOQqUvTexQrPtk
         =g6no
         -----END PGP PUBLIC KEY BLOCK-----
+  iam_archive:
+    location: 'http://10.140.221.229/apt/jioiambot/iamrepo/'
+    release: 'jiocloud'
+    repos: 'main'
+    architecture: 'amd64'
+    include:
+      src: false
+    ensure: "%{hiera('enable_internal_repo')}"
+    key:
+      id: '8911ABA0'
+      content: |
+        -----BEGIN PGP PUBLIC KEY BLOCK-----
+        Version: GnuPG v1
+        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
+        rGpYheprCuqsFEQXWgChTBo=
+        =5vlJ
+        -----END PGP PUBLIC KEY BLOCK-----
   rustedhalo_mirror:
     location: 'http://10.140.221.229/snapshots/8f23f6d7-719b-4898-a201-d4672cd37773/jiocloud.rustedhalo.com/ubuntu/'
     release: "%{hiera('rustedhalo_apt_repo_release')}"
