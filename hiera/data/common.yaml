@@ -878,8 +878,6 @@ rjil::system::apt::repositories:
         rGpYheprCuqsFEQXWgChTBo=
         =5vlJ
         -----END PGP PUBLIC KEY BLOCK-----
-
-
   rustedhalo_mirror:
     location: 'http://10.140.221.229/snapshots/8f23f6d7-719b-4898-a201-d4672cd37773/jiocloud.rustedhalo.com/ubuntu/'
     release: "%{hiera('rustedhalo_apt_repo_release')}"
