@@ -16,10 +16,10 @@ rjil::system::proxies:
   https:
     url: "http://10.140.218.59:3128/"
 
-rjil::system::accounts::active_users: [anshup,roopali,ajayaa,neeraj,himanshus]
+rjil::system::accounts::active_users: [anshup,roopali,ajayaa,neeraj,himanshus,vpramo]
 rjil::system::accounts::sudo_users:
   admin:
-    users: [anshup,roopali,ajayaa,neeraj,himanshus]
+    users: [anshup,roopali,ajayaa,neeraj,himanshus,vpramo]
 
 rjil::base::self_signed_cert: true
 
