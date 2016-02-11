@@ -716,7 +716,7 @@ rjil::system::apt::repositories:
     architecture: 'amd64'
     include:
       src: false
-    ensure: false
+    ensure: absent
     key:
       id: '73C00DD5862EE3AB537818456D10FB2A9AA3A617'
       content: |
