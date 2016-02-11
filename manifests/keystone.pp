@@ -27,7 +27,7 @@ class rjil::keystone(
     $address = $public_address
   }
 
-include rjil::test::keystone
+
 
   Rjil::Test::Check {
     ssl     => $ssl,

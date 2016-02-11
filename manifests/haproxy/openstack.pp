@@ -28,9 +28,6 @@ class rjil::haproxy::openstack(
   $galera_port            = '3306',
 ) {
 
-  class { 'rjil::test::haproxy_openstack':
-    keystone_ips          => $keystone_ips,
-  }
 
   Rjil::Haproxy_service {
     ssl => true,
