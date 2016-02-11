@@ -37,7 +37,6 @@ node /^iam\d+/ {
   include rjil::base
   include rjil::haproxy
   include rjil::keystone
-  include rjil::openstack_objects
   include rjil::haproxy::galera
   include openstack_extras::client
   include openstack_extras::auth_file

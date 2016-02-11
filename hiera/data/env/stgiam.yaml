@@ -46,3 +46,34 @@ iam_secondary_endpoint_name: "iam.ind-west-1.staging.deprecated.jiocloudservices
 rjil::keystone::server_name_secondary: "%{hiera('iam_secondary_endpoint_name')}"
 rjil::keystone::secondary_ssl_cert: "/etc/ssl/certs/%{hiera('iam_secondary_endpoint_name')}.crt"
 rjil::keystone::secondary_ssl_key: "/etc/ssl/keys/%{hiera('iam_secondary_endpoint_name')}.key"
+
+keystone::roles::admin::email: "%{hiera('admin_email')}"
+keystone::roles::admin::password: "%{hiera('admin_password')}"
+keystone::endpoint::password: keystone
+keystone::endpoint::public_url: "%{hiera('rjil::keystone::protocol')}://%{hiera('keystone_public_address')}:%{hiera('keystone_port')}"
+keystone::endpoint::admin_url: "%{hiera('rjil::keystone::protocol')}://%{hiera('keystone_private_address')}:%{hiera('keystone_admin_port')}"
+keystone::keystone::auth::region: "%{hiera('region')}"
+
+
+rjil::openstack_objects::create_keystone_ep: true
+rjil::openstack_objects::users:
+  "%{hiera('test_user_name')}":
+    password: "%{hiera('test_user_password')}"
+    user_tenant: "%{hiera('test_user_tenant')}"
+    create_network: false
+##
+# rjil::openstack_objects::tenants can be either a array of tenant names or a
+# hash of tenants with params for rjil::keystone::tenant
+##
+rjil::openstack_objects::tenants: ['mgmt_tenant','internal_tenant']
+rjil::keystone::tenant:create_network: false
+
+##
+# rjil::openstack_objects::roles can be either a array of role names or a
+# hash of roles with params for rjil::keystone::role
+##
+rjil::openstack_objects::roles: ['tenant_admin','engineering']
+
+rjil::keystone::test_user::username: "%{hiera('test_user_name')}"
+rjil::keystone::test_user::tenant_name: "%{hiera('test_user_tenant')}"
+rjil::keystone::test_user::password: "%{hiera('test_user_password')}"

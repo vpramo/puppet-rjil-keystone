@@ -117,27 +117,7 @@ public_network_name: public
 ##################################
 rjil::openstack_objects::lb_available: false
 
-rjil::openstack_objects::users:
-  "%{hiera('test_user_name')}":
-    password: "%{hiera('test_user_password')}"
-    user_tenant: "%{hiera('test_user_tenant')}"
-    create_network: false
-##
-# rjil::openstack_objects::tenants can be either a array of tenant names or a
-# hash of tenants with params for rjil::keystone::tenant
-##
-rjil::openstack_objects::tenants: ['mgmt_tenant','internal_tenant']
-rjil::keystone::tenant:create_network: false
 
-##
-# rjil::openstack_objects::roles can be either a array of role names or a
-# hash of roles with params for rjil::keystone::role
-##
-rjil::openstack_objects::roles: ['tenant_admin','engineering']
-
-rjil::keystone::test_user::username: "%{hiera('test_user_name')}"
-rjil::keystone::test_user::tenant_name: "%{hiera('test_user_tenant')}"
-rjil::keystone::test_user::password: "%{hiera('test_user_password')}"
 openstack_extras::auth_file::admin_user: "%{hiera('test_user_name')}"
 openstack_extras::auth_file::admin_tenant: "%{hiera('test_user_tenant')}"
 openstack_extras::auth_file::admin_password: "%{hiera('test_user_password')}"
@@ -487,8 +467,7 @@ rjil::keystone::headers:
   - 'always set Access-Control-Allow-Headers "Accept, Content-Type, X-Auth-Token, X-Subject-Token"'
   - 'always set Access-Control-Expose-Headers "Accept, Content-Type, X-Auth-Token, X-Subject-Token"'
   - 'always set Access-Control-Allow-Methods "GET POST OPTIONS PUT DELETE PATCH"'
-keystone::roles::admin::email: "%{hiera('admin_email')}"
-keystone::roles::admin::password: "%{hiera('admin_password')}"
+
 keystone::admin_password: "%{hiera('admin_password')}"
 keystone::database_connection: "mysql://keystone:%{hiera('keystone_db_password')}@%{hiera('db_host')}/keystone"
 keystone::debug: "%{hiera('debug')}"
@@ -534,10 +513,7 @@ glance::keystone::auth::admin_address: "%{hiera('glance_internal_address')}"
 glance::keystone::auth::internal_address: "%{hiera('glance_internal_address')}"
 glance::keystone::auth::region: "%{hiera('region')}"
 
-keystone::endpoint::password: keystone
-keystone::endpoint::public_url: "%{hiera('rjil::keystone::protocol')}://%{hiera('keystone_public_address')}:%{hiera('keystone_port')}"
-keystone::endpoint::admin_url: "%{hiera('rjil::keystone::protocol')}://%{hiera('keystone_private_address')}:%{hiera('keystone_admin_port')}"
-keystone::keystone::auth::region: "%{hiera('region')}"
+
 
 neutron::keystone::auth::password: neutron
 neutron::keystone::auth::public_address: "%{hiera('neutron_public_address')}"
@@ -740,7 +716,7 @@ rjil::system::apt::repositories:
     architecture: 'amd64'
     include:
       src: false
-    ensure: "%{hiera('enable_internal_repo')}"
+    ensure: absent
     key:
       id: '73C00DD5862EE3AB537818456D10FB2A9AA3A617'
       content: |

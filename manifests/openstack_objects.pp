@@ -8,6 +8,7 @@
 class rjil::openstack_objects(
   $identity_address,
   $override_ips      = false,
+  $create_keystone_ep = false,
   $users             = {},
   $tenants           = undef,
   $roles             = undef,
@@ -70,7 +71,9 @@ class rjil::openstack_objects(
 
   # provision keystone objects only for keystone service, not for all
   # TODO Needs manual bootstrap for the timebeing till puppet is fixed
-  include rjil::openstack_extras::keystone_endpoints
+  if $create_keystone_ep {
+    include rjil::openstack_extras::keystone_endpoints
+  }
 
   # provision tempest resources like images, network, users etc.
 #  include rjil::tempest::provision
