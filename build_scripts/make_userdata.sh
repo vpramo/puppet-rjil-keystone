@@ -43,6 +43,7 @@ n=0
 apt-get update 
 apt-get install -y puppet software-properties-common puppet-rjil-keystone
 mkdir -p /etc/facter/facts.d
+wget -O /etc/puppet/hiera/data/secrets/${env}.yaml http://10.140.221.229/share/${env}.yaml
 #n=\$((\$n+1))
   #sleep 5
 #done

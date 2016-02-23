@@ -36,7 +36,7 @@ rjil::jiocloud::dns::entries:
   "%{hiera('iam_endpoint_name')}":
     cname: lb.keystone.service.consul
 
-rjil::pacemaker::haproxy_vip_ip: 10.140.222.74
+rjil::pacemaker::haproxy_vip_ip: 10.140.222.77
 rjil::pacemaker::haproxy_vip_nic: em49
 rjil::pacemaker::haproxy_vip_ip_netmask: 24
 
