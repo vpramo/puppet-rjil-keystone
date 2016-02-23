@@ -1,0 +1,51 @@
+rjil::system::apt::proxy: "http://10.140.218.59:3128/"
+rjil::system::ntp::run_ntpdate: false
+ntp::servers:
+  - 10.140.214.14
+
+public_address: "%{ipaddress_10_140_222_0_24}"
+public_interface: "%{interface_10_140_222_0_24}"
+private_address: "%{ipaddress_10_140_222_0_24}"
+private_interface: "%{interface_10_140_222_0_24}"
+
+rjil::system::proxies:
+  "no":
+    url: "127.0.0.1,localhost,consul,jiocloud.com,jiocloudservices.com"
+  http:
+    url: "http://10.140.218.59:3128/"
+  https:
+    url: "http://10.140.218.59:3128/"
+
+rjil::system::accounts::active_users: [roopali,ajayaa,neeraj,himanshus,vpramo]
+rjil::system::accounts::sudo_users:
+  admin:
+    users: [roopali,ajayaa,neeraj,himanshus,vpramo]
+
+rjil::base::self_signed_cert: true
+
+iam_endpoint_name: "iam.ind-west-1.staging.jiocloudservices.com"
+
+apache::default_ssl_cert: "/etc/ssl/certs/%{hiera('iam_endpoint_name')}.crt"
+apache::default_ssl_key: "/etc/ssl/keys/%{hiera('iam_endpoint_name')}.key"
+rjil::trust_selfsigned_cert::cert: "/etc/ssl/certs/%{hiera('iam_endpoint_name')}.crt"
+
+keystone_public_address: "%{hiera('iam_endpoint_name')}"
+keystone_private_address: "%{hiera('iam_endpoint_name')}"
+
+rjil::jiocloud::dns::entries:
+  "%{hiera('iam_endpoint_name')}":
+    cname: lb.keystone.service.consul
+
+rjil::pacemaker::haproxy_vip_ip: 10.140.222.74
+rjil::pacemaker::haproxy_vip_nic: em49
+rjil::pacemaker::haproxy_vip_ip_netmask: 24
+
+apt::purge:
+  sources.list: true
+
+
+
+admin_email: joicloud.iamteam@ril.com
+
+test_user_password: "afbf6d5419f8efd7cf!@#$WERTYUI@#$%^&*"
+admin_password: "110d53b1feJHSGDJ%^&(*&*(+__+J2d1ad294c481a564e9e"
