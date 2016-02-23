@@ -13,8 +13,9 @@ sudo mkdir -p /etc/facter/facts.d
 if [ -n "${git_protocol}" ]; then
   export git_protocol="${git_protocol}"
 fi
-export no_proxy="127.0.0.1,169.254.169.254,localhost,consul,jiocloud.com"
-echo no_proxy="'127.0.0.1,169.254.169.254,localhost,consul,jiocloud.com'" >> /etc/environment
+export no_proxy="127.0.0.1,169.254.169.254,localhost,consul,jiocloudservices.com"
+internal_subnet_exclusion=",${env_subnet}"
+echo no_proxy="'127.0.0.1,169.254.169.254,localhost,consul,jiocloudservices.com\${internal_subnet_exclusion}'" >> /etc/environment
 if [ -n "${env_http_proxy}" ]
 then
   export http_proxy=${env_http_proxy}
@@ -29,25 +30,22 @@ if [ -n "${dns_override}" ]; then
   echo 'nameserver ${dns_override}' > /etc/resolv.conf
 fi
 wget -O puppet.deb -t 5 -T 30 http://apt.puppetlabs.com/puppetlabs-release-\${release}.deb
-if [ "${env}" == "at" ]
-then
-  jiocloud_repo_deb_url=http://jiocloud.rustedhalo.com/ubuntu/jiocloud-apt-\${release}-testing.deb
-else
-  jiocloud_repo_deb_url=http://jiocloud.rustedhalo.com/ubuntu/jiocloud-apt-\${release}.deb
-fi
-wget -O jiocloud.deb -t 5 -T 30 \${jiocloud_repo_deb_url}
-dpkg -i puppet.deb jiocloud.deb
-if no_proxy= wget -t 2 -T 30 -O internal.deb http://apt.internal.jiocloud.com/internal.deb
-then
-  dpkg -i internal.deb
+dpkg -i puppet.deb
+if [ -n "${puppet_iam_repo_url}" ];then
+  if [ -z "\`grep '${puppet_iam_repo_url}' /etc/apt/sources.list\`" ];then
+    echo "deb [arch=amd64] ${puppet_iam_repo_url} jiocloud main" | tee -a /etc/apt/sources.list
+    wget -qO - ${puppet_iam_repo_url}/repo.key | apt-key add -
+  fi
 fi
 n=0
-while [ \$n -le 5 ]
-do
-  apt-get update && apt-get install -y puppet software-properties-common puppet-jiocloud jiocloud-ssl-certificate && break
-  n=\$((\$n+1))
-  sleep 5
-done
+#while [ \$n -le 5 ]
+#do
+apt-get update 
+apt-get install -y puppet software-properties-common puppet-rjil-keystone
+mkdir -p /etc/facter/facts.d
+#n=\$((\$n+1))
+  #sleep 5
+#done
 if [ -n "${override_repo}" ]; then
   echo "override_repo=${override_repo}" > /etc/facter/facts.d/override_repo.txt
   time gem install faraday faraday_middleware --no-ri --no-rdoc;
@@ -147,6 +145,7 @@ while true
 do
   # first install all packages to make the build as fast as possible
   puppet apply --detailed-exitcodes \`puppet config print default_manifest\` --config_version='echo packages' --tags package
+  apt-get update
   ret_code_package=\$?
   # now perform base config
   (echo 'File<| title == "/etc/consul" |> { purge => false }'; echo 'include rjil::jiocloud' ) | puppet apply --config_version='echo bootstrap' --detailed-exitcodes --debug
